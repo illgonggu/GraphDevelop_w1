@@ -1,0 +1,25 @@
+//
+//  MyTimer.swift
+
+import Foundation
+import SwiftUI
+import Combine
+
+
+
+
+class MyTimer {
+    //@ObervedObjet를 사용하기위해 @Published를 할당
+    var value: Int = 0
+    var cnt : Int = 0
+    
+    init() {
+        //간격        //반복되기때문에 true   //timer을 in 해준다
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            self.value += 1
+            //arrcnt가 배열의 한부분이 될 것임 지금은 배열이 10일 때의 기준
+            //타이머가 올라감에 따라 0~10을 계속 돌도록 설정
+            self.cnt += 1
+        }
+    }
+}
