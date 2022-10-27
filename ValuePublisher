@@ -1,0 +1,59 @@
+//  ValuePublisher.swift
+
+
+import Foundation
+
+class ValuePublisher: ObservableObject {
+    @Published var value: Double = 0.0
+    @Published var time: Int = 0
+    @Published var randomInts: [Double] = [0.0,0.0,0.0,0.0,0.0,0.0]
+
+    init() {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            self.value = Double.random(in: 0..<1.0)
+            self.time += 1
+            for i in 0..<6 { // 반복문
+                self.randomInts[i] = Double.random(in: 0...1.0)
+            }
+        }
+    }
+}
+
+public func convertTimeToFitText(time: Int) -> String {
+    // 초와 분을 나눈다.
+    let minute = time / 60
+    let sec = time % 60
+       
+    // 1분이 넘는 경우
+    if minute > 0 {
+      return "0\(minute):\(sec < 10 ? "0\(sec)" : "\(sec)")"
+           
+    // 1 분이 넘지 않는 경우
+    } else {
+      return "00:\(sec < 10 ? "0\(sec)" : "\(sec)")"
+       }
+}
+
+struct Queue<T> {
+    var list = [T]()
+    
+    mutating func enqueue(_ element: T) {
+        list.append(element)
+    }
+    
+    mutating func dequeue() -> T? {
+        if !list.isEmpty {
+            return list.removeFirst()
+        } else {
+            return nil
+        }
+    }
+    
+    func peek() -> T? {
+        if !list.isEmpty {
+            return list[0]
+        } else {
+            return nil
+        }
+    }
+}
