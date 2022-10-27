@@ -1,0 +1,42 @@
+//  ChartView.swift
+
+import Charts
+import SwiftUI
+
+struct ChartView: View {
+    
+    @State var doubleQueue = Queue<Double>()
+
+    @StateObject var valuePublisher = ValuePublisher()
+    
+    var body: some View {
+        ZStack{
+            GraphShape()
+            VStack(alignment: .leading){
+                Text("\(valuePublisher.value)")
+                    .font(.system(size:10))
+                Chart(data: doubleQueue.list)
+                    .chartStyle(
+                        LineChartStyle(.quadCurve,lineColor: .blue, lineWidth: 5)
+                    )
+                    .onAppear {
+                        doubleQueue.list = [Double](repeating: 0.0, count: 50)
+                    }
+                    .onChange(of: valuePublisher.value) { value in
+                        self.doubleQueue.enqueue(value)
+                        _ = self.doubleQueue.dequeue()
+                    }
+                .padding()
+                Text("\(convertTimeToFitText(time:self.valuePublisher.time))")
+                    .font(.system(size:10))
+                .padding(.trailing)
+                
+            }
+        }
+    }
+}
+struct ChartView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChartView()
+    }
+}
