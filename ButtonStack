@@ -1,0 +1,32 @@
+//
+//  ButtonStack.swift
+
+import SwiftUI
+
+struct ButtonStack: View{
+    @StateObject var valuePublisher = ValuePublisher()
+    
+    var body: some View{
+        VStack{
+            HStack{
+                ButtonView(title: "\(valuePublisher.randomInts[0])", bgColor: Color.blue)
+                ButtonView(title: "\(valuePublisher.randomInts[1])", bgColor: Color.blue)
+            }
+            .padding(.bottom,10)
+            HStack{
+                ButtonView(title: "\(valuePublisher.randomInts[2])", bgColor: Color.red)
+                ButtonView(title: "\(valuePublisher.randomInts[3])", bgColor: Color.red)
+            }
+            HStack{
+                ButtonView(title: "\(valuePublisher.randomInts[4])", bgColor: Color.red)
+                ButtonView(title: "\(valuePublisher.randomInts[5])", bgColor: Color.red)
+            }
+            .padding(.bottom,50)
+        }
+    }
+}
+struct ButtonStack_Previews: PreviewProvider {
+    static var previews: some View {
+        ButtonStack()
+    }
+}
