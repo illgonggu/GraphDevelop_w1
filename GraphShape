@@ -1,0 +1,45 @@
+
+//  GraphShape.swift
+
+import SwiftUI
+
+
+
+struct GraphShape: View {
+   
+    var body: some View {
+        GeometryReader{ geometry in
+//            Path { path in
+//                    path.move(to: CGPoint(x: 200, y: 0))
+//                    path.addLine(to: CGPoint(x: 200, y: 300))
+//                }
+//                .stroke(.blue, lineWidth: 1)
+            VLine().stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
+            HLine().stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
+        }
+        
+    }
+}
+
+struct VLine: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+        }
+    }
+}
+
+struct HLine: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            path.move(to: CGPoint(x: rect.minX, y: rect.midY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        }
+    }
+}
+struct GraphShape_Previews: PreviewProvider {
+    static var previews: some View {
+        GraphShape()
+    }
+}
